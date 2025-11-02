@@ -1,0 +1,31 @@
+/**
+ * This is a workaround for Deluge's lack of while loops and range functions
+ * Generates a list of sequential integer indices from 0 to n-1
+ *
+ * @param {int} length - The desired size of the index list (supports decimal values, will be rounded up)
+ * @return {string} A comma-separated string of integers from 0 to (length - 1)
+ *
+ * @example
+ * indices = standalone.create_indexed_list("5");    => "0, 1, 2, 3, 4"
+ * indices = standalone.create_indexed_list("3.7");  => "0, 1, 2, 3" (rounds up to 4)
+ * indices = standalone.create_indexed_list("0");    => "" (empty string)
+ * 
+ * indices = standalone.create_indexed_list(3);
+ * for each item in indices {
+ *      info "item: " + item;
+ * }
+ * 
+ * @note Input values are automatically rounded up using ceil()
+ */
+string standalone.create_indexed_list(Int length) {
+    indices = repeat("1,", length.ceil()).removeLastOccurence(",").toList();
+    list = [];
+    i = 0;
+
+    for each index in indices {
+        list.add(i);
+        i = i + 1;
+    }
+
+    return list;
+}
