@@ -1,0 +1,72 @@
+string standalone.between(string input, string low, string high) {
+    /**
+     *  standalone.between() - determines if a value falls within a specified range
+     *  This function checks whether a numeric value falls within a range with support for various range formats
+     *  including standard numeric ranges, hyphenated ranges, and "greater than or equal to" notation.
+     *
+     *  @param {string}   input     -   the value to check (will be converted to number if string)
+     *  @param {string}   low       -   the lower boundary of the range (supports standard numbers, hyphenated ranges, or plus notation)
+     *  @param {string}   high      -   the upper boundary of the range (supports same formats as low)
+     *  @return {string}            -   returns 'true' if the input value falls within the specified range, 'false' otherwise
+     *  @example
+     *  standalone.between("15", "10", "20");        // 'true'
+     *  standalone.between("25", "10", "20");        // 'false'
+     *  standalone.between("15", "10-20", "");       // 'true'
+     *  standalone.between("25", "10+", "");         // 'true'
+     */
+    // ╔──────────────────────────────────────────────────╗
+    // ║             convert input to number              ║
+    // ╚──────────────────────────────────────────────────╝
+    input_number = if(isText(input), toNumber(input), input);
+      
+    // ╔──────────────────────────────────────────────────╗
+    // ║    handle hyphen range format (e.g., "10-20")    ║
+    // ╚──────────────────────────────────────────────────╝
+    if (low.contains("-")) {
+        LOW_PARTS = low.toList("-");
+        low_number = toNumber(LOW_PARTS.get(0));
+        high_number = toNumber(LOW_PARTS.get(1));
+        if (input_number >= low_number && input_number <= high_number) {
+            return true;
+        }
+    }
+    // ───────────────────────────────────────────────────────────
+    if (high.contains("-")) {
+        HIGH_PARTS = high.toList("-");
+        low_number = toNumber(HIGH_PARTS.get(0));
+        high_number = toNumber(HIGH_PARTS.get(1));
+        if (input_number >= low_number && input_number <= high_number) {
+            return true;
+        }
+    }
+  
+    // ╔──────────────────────────────────────────────────╗
+    // ║        handle plus notation (e.g., "10")         ║
+    // ╚──────────────────────────────────────────────────╝
+    if (low.contains("+")) {
+        low_number = toNumber(low.removeFirstOccurence("+"));
+        if (input_number >= low_number) {
+            return true;
+        }
+    }
+    // ───────────────────────────────────────────────────────────
+    if (high.contains("+")) {
+        low_number = toNumber(high.removeFirstOccurence("+"));
+        if (input_number >= low_number) {
+            return true;
+        }
+    }
+  
+    // ╔──────────────────────────────────────────────────╗
+    // ║               standard range check               ║
+    // ╚──────────────────────────────────────────────────╝
+    if (!low.contains("-") && !low.contains("+") && !high.contains("-") && !high.contains("+")) {
+        low_number = toNumber(low);
+        high_number = toNumber(high);
+        if (input_number >= low_number && input_number <= high_number) {
+            return true;
+        }
+    }
+    
+    return false;
+}
