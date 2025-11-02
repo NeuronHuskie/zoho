@@ -1,0 +1,16 @@
+/**
+ * Retrieves the current date and time as a timestamp in the logged in user's local timezone
+ * @return {string} Current timestamp formatted as 'yyyyMMddHHmmss' (e.g., "20251102143045")
+ * @example
+ * timestamp = standalone.local_datetime();  => "20251102143045" (November 2, 2025 at 2:30:45 PM)
+ */
+string standalone.local_datetime() {
+    user_response = zoho.crm.invokeConnector("crm.getusers", Map());
+    users = ifnull(user_response.get("response").get("users"), Map());
+    for each user in users {
+        if (user.get("email") == zoho.loginuserid) {
+            return zoho.currenttime.toTime("yyyy-MM-dd'T'HH:mm:ss").toString("yyyyMMddHHmmss", user.get("time_zone"));
+        }
+    }
+    return "";
+}
