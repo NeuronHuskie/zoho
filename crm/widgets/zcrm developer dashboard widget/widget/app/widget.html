@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoho CRM Developer Dashboard</title>
+
+    <!-- ╔──────────────────────────────────────────────────╗ -->
+    <!-- ║              external dependencies               ║ -->
+    <!-- ╚──────────────────────────────────────────────────╝ -->
+
+    <script src="https://live.zwidgets.com/js-sdk/1.5/ZohoEmbededAppSDK.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+
+    <!-- ╔──────────────────────────────────────────────────╗ -->
+    <!-- ║                   stylesheets                    ║ -->
+    <!-- ╚──────────────────────────────────────────────────╝ -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+    <div id="zcrm-dev-dashboard">
+        <div id="dashboard-panel">
+
+            <!-- ╔──────────────────────────────────────────────────╗ -->
+            <!-- ║                  widget header                   ║ -->
+            <!-- ╚──────────────────────────────────────────────────╝ -->
+
+            <div id="dashboard-header">
+                <div class="header-left">
+                    <div class="tab-container">
+                        <button id="tab-functions" class="tab-button active">Deluge Functions</button>
+                        <button id="tab-scripts" class="tab-button">Client Scripts</button>
+                    </div>
+                    <div class="link-container">
+                        <a id="help-link" href="https://www.zoho.com/deluge/help" target="_blank" title="Help Documentation">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <path d="M12 17h.01" />
+                            </svg>
+                        </a>
+                        <a id="settings-link" href="#" target="_blank" title="Open Settings">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                            </svg>
+                        </a>
+                        <a href="https://github.com/NeuronHuskie/zoho" target="_blank" title="GitHub Repository">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <button id="close-dashboard" title="Close Dashboard">&times;</button>
+            </div>
+
+            <!-- ╔──────────────────────────────────────────────────╗ -->
+            <!-- ║              deluge functions tab                ║ -->
+            <!-- ╚──────────────────────────────────────────────────╝ -->
+
+            <div id="functions-tab" class="tab-content">
+                <div class="filter-bar">
+                    <div class="filter-controls">
+                        <input type="text" id="functions-search" placeholder="Search functions and source code...">
+                        <select id="functions-category" class="filter-select">
+                            <option value="">All Categories</option>
+                        </select>
+                        <select id="functions-sort" class="filter-select">
+                            <option value="modified">Sort by Modified</option>
+                            <option value="created">Sort by Created</option>
+                            <option value="name">Sort by Name</option>
+                            <option value="category">Sort by Category</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="list-container-wrapper">
+                    <div id="functions-list">
+                        <div id="functions-loading" class="loading-message">Loading functions...</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-footer">
+                    <div class="footer-left">
+                        <span id="functions-count">Showing 0 functions</span>
+                        <span class="dashboard-status"></span>
+                    </div>
+                    <div class="footer-right">
+                        <button id="functions-refresh" class="footer-button" title="Refresh Cache">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 4 23 10 17 10" />
+                                <polyline points="1 20 1 14 7 14" />
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                            </svg>
+                        </button>
+                        <button id="functions-export" class="footer-button" title="Export Functions">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </button>
+                        <div id="functions-cache-status" class="cache-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ╔──────────────────────────────────────────────────╗ -->
+            <!-- ║                client scripts tab                ║ -->
+            <!-- ╚──────────────────────────────────────────────────╝ -->
+
+            <div id="scripts-tab" class="tab-content" style="display: none;">
+                <div class="filter-bar">
+                    <div class="search-bar-wrapper">
+                        <input type="text" id="scripts-search" placeholder="Search client scripts and source code...">
+                    </div>
+                    <div class="sub-filter-wrapper">
+                        <div class="scripts-subtab-container">
+                            <button id="scripts-subtab-all" class="scripts-subtab">Show All</button>
+                            <button id="scripts-subtab-module" class="scripts-subtab active">Module Scripts</button>
+                            <button id="scripts-subtab-commands" class="scripts-subtab">Commands</button>
+                            <button id="scripts-subtab-static" class="scripts-subtab">Static Resources</button>
+                        </div>
+                        <div id="scripts-filters-container">
+                            <select id="scripts-module" class="filter-select">
+                                <option value="">All Modules</option>
+                            </select>
+                            <select id="scripts-page" class="filter-select">
+                                <option value="">All Pages</option>
+                            </select>
+                            <select id="scripts-event" class="filter-select">
+                                <option value="">All Events</option>
+                            </select>
+                            <select id="scripts-status" class="filter-select">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <select id="scripts-sort" class="filter-select">
+                                <option value="modified">Sort by Modified</option>
+                                <option value="created">Sort by Created</option>
+                                <option value="name">Sort by Name</option>
+                                <option value="page">Sort by Page</option>
+                                <option value="event">Sort by Event</option>
+                            </select>
+                            <select id="scripts-sort-simple" class="filter-select" style="display: none;">
+                                <option value="modified">Sort by Modified</option>
+                                <option value="created">Sort by Created</option>
+                                <option value="name">Sort by Name</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="scripts-active-filters" style="display: none;">
+                        <span class="active-filters-label">Active filters:</span>
+                        <div id="scripts-filter-bubbles"></div>
+                        <button id="scripts-clear-filters" class="footer-button">Clear Filters</button>
+                    </div>
+                </div>
+                <div class="list-container-wrapper">
+                    <div id="scripts-list">
+                        <div id="scripts-loading" class="loading-message">Loading client scripts...</div>
+                    </div>
+                </div>
+                <div class="dashboard-footer">
+                    <div class="footer-left">
+                        <span id="scripts-count">Showing 0 scripts</span>
+                        <span class="dashboard-status"></span>
+                    </div>
+                    <div class="footer-right">
+                        <button id="scripts-refresh" class="footer-button" title="Refresh Cache">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 4 23 10 17 10" />
+                                <polyline points="1 20 1 14 7 14" />
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                            </svg>
+                        </button>
+                        <button id="scripts-export" class="footer-button" title="Export Scripts">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </button>
+                        <div id="scripts-cache-status" class="cache-status"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-container"></div>
+
+    <!-- ╔──────────────────────────────────────────────────╗ -->
+    <!-- ║                 widget script                    ║ -->
+    <!-- ╚──────────────────────────────────────────────────╝ -->
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
