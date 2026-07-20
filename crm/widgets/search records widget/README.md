@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> **This widget is archived and has been superseded by [mosaic-zcrm](https://github.com/NeuronHuskie/mosaic-zcrm)** - a single widget + client-script helper that covers everything this widget does and more.
+
+---
+
 <img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/crm.svg" width="100" alt="create-widget" style="border: 0px; solid #666; padding: 5px;">
 
 # Dynamic Record Search Widget for Zoho CRM
